@@ -18,14 +18,24 @@ namespace WinForms_Connect4
         private bool isLocalPlayerTurn { get; set; }
         private List<System.Windows.Forms.Button> buttonList;
         private System.Windows.Forms.Button lastPicked;
-        private Game game;
+        Game game;
 
-        public GameForm(Game game)
+
+        public GameForm()
         {
             InitializeComponent();
-            this.game = game;
-        }
 
+        }
+  
+        public void setGame(Game game)
+        {
+            this.game = game;
+            this.isLocalPlayerTurn = game.IsLocalPlayerTurn;
+            if (this.isLocalPlayerTurn)
+            {
+                this.gameButtonsTurnOn();
+            }
+        }
         private void initButtonList()
         {
             buttonList.Add(btn1);
@@ -45,7 +55,7 @@ namespace WinForms_Connect4
 
         }
 
-        private void gameButtonsTurnOff()
+        internal void gameButtonsTurnOff()
         {
            //for each button in buttonList
            foreach (System.Windows.Forms.Button button in buttonList)
@@ -54,7 +64,7 @@ namespace WinForms_Connect4
             }
             resetToolStripMenuItem.Enabled = false;
         }
-        private void gameButtonsTurnOn()
+        internal void gameButtonsTurnOn()
         {
             //for each button in buttonList
             foreach (System.Windows.Forms.Button button in buttonList)
@@ -189,7 +199,7 @@ namespace WinForms_Connect4
         // menu buttons
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            g = new Game();
+
             btn1.Enabled = true;
             btn2.Enabled = true;
             btn3.Enabled = true;

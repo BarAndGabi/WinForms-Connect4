@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Data;
 using System.Runtime.Remoting.Channels;
+using System.Windows.Forms;
 
 namespace WinForms_Connect4
 {
-    class Game
+    public class Game
     {
         public int Counter { get; private set; }
         public int Rows { get; }
         public int Columns { get; }
         public bool IsLocalPlayerTurn { get; private set; }
         public int[,] Board { get; }
-        public GameForm gameForm;
+        private GameForm gameForm;
         private LocalPlayer localPlayer;
         private ServerSide serverSide;
 
@@ -23,7 +24,8 @@ namespace WinForms_Connect4
             Board = new int[Rows, Columns];
             IsLocalPlayerTurn = false;
             initBoard();
-            gameForm = new GameForm(this);
+            gameForm = new GameForm();
+            gameForm.setGame(this);
             localPlayer = new LocalPlayer();
             serverSide = new ServerSide();
         }
@@ -62,7 +64,18 @@ namespace WinForms_Connect4
 
         public void Turn()
         {
-            // Add implementation for the turn logic here
+           if(this.IsLocalPlayerTurn)
+            {
+                this.gameForm.gameButtonsTurnOn();
+                //"wait" for apply btn
+
+            }
+            else
+            {
+                this.gameForm.gameButtonsTurnOff();
+                //get turn result from server
+                //retry until valid slot
+            }
         }
 
         public int CheckVictory()
@@ -132,6 +145,11 @@ namespace WinForms_Connect4
             }
 
             return 0; // No victory yet
+        }
+
+        internal Form getGameForm()
+        {
+           return this.gameForm;
         }
     }
 }
