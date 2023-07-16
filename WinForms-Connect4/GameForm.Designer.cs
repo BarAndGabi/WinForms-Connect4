@@ -1,6 +1,6 @@
 ﻿namespace WinForms_Connect4
 {
-    partial class Form1
+    partial class GameForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,21 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.themesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.defaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.darkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.summerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cell00 = new System.Windows.Forms.PictureBox();
             this.cell01 = new System.Windows.Forms.PictureBox();
             this.cell11 = new System.Windows.Forms.PictureBox();
@@ -143,13 +133,10 @@
             // 
             this.menuStrip1.Font = new System.Drawing.Font("Corbel", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.optionsToolStripMenuItem,
-            this.exitToolStripMenuItem,
-            this.toolStripMenuItem1});
+            this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(584, 26);
+            this.menuStrip1.Size = new System.Drawing.Size(585, 26);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -175,55 +162,6 @@
             this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.resetToolStripMenuItem.Text = "Reset";
             this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
-            // 
-            // optionsToolStripMenuItem
-            // 
-            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.themesToolStripMenuItem});
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(69, 22);
-            this.optionsToolStripMenuItem.Text = "Options";
-            // 
-            // themesToolStripMenuItem
-            // 
-            this.themesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.defaultToolStripMenuItem,
-            this.darkToolStripMenuItem,
-            this.summerToolStripMenuItem,
-            this.fallToolStripMenuItem});
-            this.themesToolStripMenuItem.Name = "themesToolStripMenuItem";
-            this.themesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.themesToolStripMenuItem.Text = "Themes";
-         
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem1});
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(43, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            // 
-            // exitToolStripMenuItem1
-            // 
-            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
-            this.exitToolStripMenuItem1.Text = "Exit";
-            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(26, 22);
-            this.toolStripMenuItem1.Text = "?";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // cell00
             // 
@@ -277,7 +215,7 @@
             this.btn1.TabIndex = 5;
             this.btn1.Text = "↓";
             this.btn1.UseVisualStyleBackColor = true;
-            this.btn1.Click += new System.EventHandler(this.btn1_Click);
+            this.btn1.Click += new System.EventHandler(this.row0_Click);
             // 
             // btn2
             // 
@@ -287,7 +225,7 @@
             this.btn2.TabIndex = 6;
             this.btn2.Text = "↓";
             this.btn2.UseVisualStyleBackColor = true;
-            this.btn2.Click += new System.EventHandler(this.btn2_Click);
+            this.btn2.Click += new System.EventHandler(this.row1_Click);
             // 
             // btn3
             // 
@@ -297,7 +235,7 @@
             this.btn3.TabIndex = 7;
             this.btn3.Text = "↓";
             this.btn3.UseVisualStyleBackColor = true;
-            this.btn3.Click += new System.EventHandler(this.btn3_Click);
+            this.btn3.Click += new System.EventHandler(this.row2_Click);
             // 
             // btn4
             // 
@@ -307,7 +245,7 @@
             this.btn4.TabIndex = 8;
             this.btn4.Text = "↓";
             this.btn4.UseVisualStyleBackColor = true;
-            this.btn4.Click += new System.EventHandler(this.btn4_Click);
+            this.btn4.Click += new System.EventHandler(this.row3_Click);
             // 
             // btn5
             // 
@@ -317,7 +255,7 @@
             this.btn5.TabIndex = 9;
             this.btn5.Text = "↓";
             this.btn5.UseVisualStyleBackColor = true;
-            this.btn5.Click += new System.EventHandler(this.btn5_Click);
+            this.btn5.Click += new System.EventHandler(this.row4_Click);
             // 
             // btn6
             // 
@@ -327,7 +265,7 @@
             this.btn6.TabIndex = 10;
             this.btn6.Text = "↓";
             this.btn6.UseVisualStyleBackColor = true;
-            this.btn6.Click += new System.EventHandler(this.btn6_Click);
+            this.btn6.Click += new System.EventHandler(this.row5_Click);
             // 
             // btn7
             // 
@@ -337,7 +275,7 @@
             this.btn7.TabIndex = 11;
             this.btn7.Text = "↓";
             this.btn7.UseVisualStyleBackColor = true;
-            this.btn7.Click += new System.EventHandler(this.btn7_Click);
+            this.btn7.Click += new System.EventHandler(this.row6_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -821,13 +759,13 @@
             this.cell50.TabIndex = 13;
             this.cell50.TabStop = false;
             // 
-            // Form1
+            // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(584, 556);
+            this.ClientSize = new System.Drawing.Size(585, 556);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.btn7);
             this.Controls.Add(this.btn6);
@@ -842,9 +780,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "GameForm";
             this.Text = "Connect 4";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.GameForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cell00)).EndInit();
@@ -899,11 +837,6 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.PictureBox cell00;
         private System.Windows.Forms.PictureBox cell01;
         private System.Windows.Forms.PictureBox cell11;
@@ -956,11 +889,6 @@
         private System.Windows.Forms.PictureBox cell55;
         private System.Windows.Forms.PictureBox cell54;
         private System.Windows.Forms.PictureBox cell53;
-        private System.Windows.Forms.ToolStripMenuItem themesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem darkToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem summerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fallToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem defaultToolStripMenuItem;
     }
 }
 

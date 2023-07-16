@@ -17,7 +17,8 @@ namespace WinForms_Connect4
             createCheckerPieces();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Game g = new Game();
+            Application.Run(g.gameForm);
         }
         static void createCheckerPieces()
         {
