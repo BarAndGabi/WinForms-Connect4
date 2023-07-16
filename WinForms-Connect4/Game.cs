@@ -18,43 +18,43 @@ namespace WinForms_Connect4
 
         public Game()
         {
-            Counter = 0;
-            Rows = 6;
-            Columns = 7;
-            Board = new int[Rows, Columns];
-            IsLocalPlayerTurn = false;
-            initBoard();
-            gameForm = new GameForm();
-            gameForm.setGame(this);
-            localPlayer = new LocalPlayer();
-            serverSide = new ServerSide();
+            this.Counter = 0;
+            this.Rows = 6;
+            this.Columns = 7;
+            this.Board = new int[Rows, Columns];
+            this.IsLocalPlayerTurn = false;
+            this.initBoard();
+            this.gameForm = new GameForm();
+            this.gameForm.SetGame(this);
+            this.localPlayer = new LocalPlayer();
+            this.serverSide = new ServerSide();
         }
 
         private void initBoard()
         {
             // Initialize the board
-            for (int i = 0; i < Rows; i++)
+            for (int i = 0; i < this.Rows; i++)
             {
-                for (int j = 0; j < Columns; j++)
+                for (int j = 0; j < this.Columns; j++)
                 {
-                    Board[i, j] = 0;
+                    this.Board[i, j] = 0;
                 }
             }
         }
 
         public int Count()
         {
-            return ++Counter;
+            return ++this.Counter;
         }
 
         public int CheckValidSlot(int column)
         {
-            for (int i = Rows - 1; i >= 0; i--)
+            for (int i = this.Rows - 1; i >= 0; i--)
             {
-                if (Board[i, column] == 0)
+                if (this.Board[i, column] == 0)
                 {
-                    Board[i, column] = IsLocalPlayerTurn ? 1 : 2;
-                    IsLocalPlayerTurn = !IsLocalPlayerTurn;
+                    this.Board[i, column] = this.IsLocalPlayerTurn ? 1 : 2;
+                    this.IsLocalPlayerTurn = !this.IsLocalPlayerTurn;
                     return i;
                 }
             }
@@ -64,32 +64,37 @@ namespace WinForms_Connect4
 
         public void Turn()
         {
-           if(this.IsLocalPlayerTurn)
+            if (this.IsLocalPlayerTurn)
             {
-                this.gameForm.gameButtonsTurnOn();
+                this.gameForm.GameButtonsTurnOn();
                 //"wait" for apply btn
 
             }
             else
             {
-                this.gameForm.gameButtonsTurnOff();
+                this.gameForm.GameButtonsTurnOff();
                 //get turn result from server
                 //retry until valid slot
             }
         }
+        internal void apply(int column)
+        {
 
+            //if there is no space on board or there is a winner go to next turn
+            Turn();
+        }   
         public int CheckVictory()
         {
             // Check rows
-            for (int row = 0; row < Rows; row++)
+            for (int row = 0; row < this.Rows; row++)
             {
-                for (int col = 0; col <= Columns - 4; col++)
+                for (int col = 0; col <= this.Columns - 4; col++)
                 {
-                    int player = Board[row, col];
+                    int player = this.Board[row, col];
                     if (player != 0 &&
-                        Board[row, col + 1] == player &&
-                        Board[row, col + 2] == player &&
-                        Board[row, col + 3] == player)
+                        this.Board[row, col + 1] == player &&
+                        this.Board[row, col + 2] == player &&
+                        this.Board[row, col + 3] == player)
                     {
                         return player;
                     }
@@ -97,15 +102,15 @@ namespace WinForms_Connect4
             }
 
             // Check columns
-            for (int col = 0; col < Columns; col++)
+            for (int col = 0; col < this.Columns; col++)
             {
-                for (int row = 0; row <= Rows - 4; row++)
+                for (int row = 0; row <= this.Rows - 4; row++)
                 {
-                    int player = Board[row, col];
+                    int player = this.Board[row, col];
                     if (player != 0 &&
-                        Board[row + 1, col] == player &&
-                        Board[row + 2, col] == player &&
-                        Board[row + 3, col] == player)
+                        this.Board[row + 1, col] == player &&
+                        this.Board[row + 2, col] == player &&
+                        this.Board[row + 3, col] == player)
                     {
                         return player;
                     }
@@ -113,15 +118,15 @@ namespace WinForms_Connect4
             }
 
             // Check diagonals (top-left to bottom-right)
-            for (int row = 0; row <= Rows - 4; row++)
+            for (int row = 0; row <= this.Rows - 4; row++)
             {
-                for (int col = 0; col <= Columns - 4; col++)
+                for (int col = 0; col <= this.Columns - 4; col++)
                 {
-                    int player = Board[row, col];
+                    int player = this.Board[row, col];
                     if (player != 0 &&
-                        Board[row + 1, col + 1] == player &&
-                        Board[row + 2, col + 2] == player &&
-                        Board[row + 3, col + 3] == player)
+                        this.Board[row + 1, col + 1] == player &&
+                        this.Board[row + 2, col + 2] == player &&
+                        this.Board[row + 3, col + 3] == player)
                     {
                         return player;
                     }
@@ -129,15 +134,15 @@ namespace WinForms_Connect4
             }
 
             // Check diagonals (top-right to bottom-left)
-            for (int row = 0; row <= Rows - 4; row++)
+            for (int row = 0; row <= this.Rows - 4; row++)
             {
-                for (int col = Columns - 1; col >= 3; col--)
+                for (int col = this.Columns - 1; col >= 3; col--)
                 {
-                    int player = Board[row, col];
+                    int player = this.Board[row, col];
                     if (player != 0 &&
-                        Board[row + 1, col - 1] == player &&
-                        Board[row + 2, col - 2] == player &&
-                        Board[row + 3, col - 3] == player)
+                        this.Board[row + 1, col - 1] == player &&
+                        this.Board[row + 2, col - 2] == player &&
+                        this.Board[row + 3, col - 3] == player)
                     {
                         return player;
                     }
@@ -147,9 +152,15 @@ namespace WinForms_Connect4
             return 0; // No victory yet
         }
 
-        internal Form getGameForm()
+        internal Form GetGameForm()
         {
-           return this.gameForm;
+            return this.gameForm;
+        }
+
+        internal void StartGame()
+        {
+            this.IsLocalPlayerTurn = true;
+            this.Turn();
         }
     }
 }

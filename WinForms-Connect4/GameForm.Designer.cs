@@ -32,18 +32,17 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cell00 = new System.Windows.Forms.PictureBox();
             this.cell01 = new System.Windows.Forms.PictureBox();
             this.cell11 = new System.Windows.Forms.PictureBox();
             this.cell10 = new System.Windows.Forms.PictureBox();
-            this.btn1 = new System.Windows.Forms.Button();
-            this.btn2 = new System.Windows.Forms.Button();
-            this.btn3 = new System.Windows.Forms.Button();
-            this.btn4 = new System.Windows.Forms.Button();
-            this.btn5 = new System.Windows.Forms.Button();
-            this.btn6 = new System.Windows.Forms.Button();
-            this.btn7 = new System.Windows.Forms.Button();
+            this.row0 = new System.Windows.Forms.Button();
+            this.row1 = new System.Windows.Forms.Button();
+            this.row2 = new System.Windows.Forms.Button();
+            this.row3 = new System.Windows.Forms.Button();
+            this.row4 = new System.Windows.Forms.Button();
+            this.row5 = new System.Windows.Forms.Button();
+            this.row6 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.cell51 = new System.Windows.Forms.PictureBox();
             this.cell20 = new System.Windows.Forms.PictureBox();
@@ -83,7 +82,7 @@
             this.cell53 = new System.Windows.Forms.PictureBox();
             this.cell52 = new System.Windows.Forms.PictureBox();
             this.cell50 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.apply = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cell00)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cell01)).BeginInit();
@@ -144,8 +143,7 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startToolStripMenuItem,
-            this.resetToolStripMenuItem});
+            this.startToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(41, 22);
             this.fileToolStripMenuItem.Text = "File";
@@ -153,16 +151,11 @@
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
-            // resetToolStripMenuItem
-            // 
-            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.resetToolStripMenuItem.Text = "Reset";
-            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
+            
             // 
             // cell00
             // 
@@ -208,75 +201,75 @@
             this.cell10.TabIndex = 3;
             this.cell10.TabStop = false;
             // 
-            // btn1
+            // row0
             // 
-            this.btn1.Location = new System.Drawing.Point(29, 533);
-            this.btn1.Name = "btn1";
-            this.btn1.Size = new System.Drawing.Size(35, 23);
-            this.btn1.TabIndex = 5;
-            this.btn1.Text = "↓";
-            this.btn1.UseVisualStyleBackColor = true;
-            this.btn1.Click += new System.EventHandler(this.row0_Click);
+            this.row0.Location = new System.Drawing.Point(29, 533);
+            this.row0.Name = "row0";
+            this.row0.Size = new System.Drawing.Size(35, 23);
+            this.row0.TabIndex = 5;
+            this.row0.Text = "↓";
+            this.row0.UseVisualStyleBackColor = true;
+            this.row0.Click += new System.EventHandler(this.row0_Click);
             // 
-            // btn2
+            // row1
             // 
-            this.btn2.Location = new System.Drawing.Point(108, 533);
-            this.btn2.Name = "btn2";
-            this.btn2.Size = new System.Drawing.Size(35, 23);
-            this.btn2.TabIndex = 6;
-            this.btn2.Text = "↓";
-            this.btn2.UseVisualStyleBackColor = true;
-            this.btn2.Click += new System.EventHandler(this.row1_Click);
+            this.row1.Location = new System.Drawing.Point(108, 533);
+            this.row1.Name = "row1";
+            this.row1.Size = new System.Drawing.Size(35, 23);
+            this.row1.TabIndex = 6;
+            this.row1.Text = "↓";
+            this.row1.UseVisualStyleBackColor = true;
+            this.row1.Click += new System.EventHandler(this.row1_Click);
             // 
-            // btn3
+            // row2
             // 
-            this.btn3.Location = new System.Drawing.Point(191, 533);
-            this.btn3.Name = "btn3";
-            this.btn3.Size = new System.Drawing.Size(35, 23);
-            this.btn3.TabIndex = 7;
-            this.btn3.Text = "↓";
-            this.btn3.UseVisualStyleBackColor = true;
-            this.btn3.Click += new System.EventHandler(this.row2_Click);
+            this.row2.Location = new System.Drawing.Point(191, 533);
+            this.row2.Name = "row2";
+            this.row2.Size = new System.Drawing.Size(35, 23);
+            this.row2.TabIndex = 7;
+            this.row2.Text = "↓";
+            this.row2.UseVisualStyleBackColor = true;
+            this.row2.Click += new System.EventHandler(this.row2_Click);
             // 
-            // btn4
+            // row3
             // 
-            this.btn4.Location = new System.Drawing.Point(273, 533);
-            this.btn4.Name = "btn4";
-            this.btn4.Size = new System.Drawing.Size(35, 23);
-            this.btn4.TabIndex = 8;
-            this.btn4.Text = "↓";
-            this.btn4.UseVisualStyleBackColor = true;
-            this.btn4.Click += new System.EventHandler(this.row3_Click);
+            this.row3.Location = new System.Drawing.Point(273, 533);
+            this.row3.Name = "row3";
+            this.row3.Size = new System.Drawing.Size(35, 23);
+            this.row3.TabIndex = 8;
+            this.row3.Text = "↓";
+            this.row3.UseVisualStyleBackColor = true;
+            this.row3.Click += new System.EventHandler(this.row3_Click);
             // 
-            // btn5
+            // row4
             // 
-            this.btn5.Location = new System.Drawing.Point(357, 533);
-            this.btn5.Name = "btn5";
-            this.btn5.Size = new System.Drawing.Size(35, 23);
-            this.btn5.TabIndex = 9;
-            this.btn5.Text = "↓";
-            this.btn5.UseVisualStyleBackColor = true;
-            this.btn5.Click += new System.EventHandler(this.row4_Click);
+            this.row4.Location = new System.Drawing.Point(357, 533);
+            this.row4.Name = "row4";
+            this.row4.Size = new System.Drawing.Size(35, 23);
+            this.row4.TabIndex = 9;
+            this.row4.Text = "↓";
+            this.row4.UseVisualStyleBackColor = true;
+            this.row4.Click += new System.EventHandler(this.row4_Click);
             // 
-            // btn6
+            // row5
             // 
-            this.btn6.Location = new System.Drawing.Point(438, 533);
-            this.btn6.Name = "btn6";
-            this.btn6.Size = new System.Drawing.Size(35, 23);
-            this.btn6.TabIndex = 10;
-            this.btn6.Text = "↓";
-            this.btn6.UseVisualStyleBackColor = true;
-            this.btn6.Click += new System.EventHandler(this.row5_Click);
+            this.row5.Location = new System.Drawing.Point(438, 533);
+            this.row5.Name = "row5";
+            this.row5.Size = new System.Drawing.Size(35, 23);
+            this.row5.TabIndex = 10;
+            this.row5.Text = "↓";
+            this.row5.UseVisualStyleBackColor = true;
+            this.row5.Click += new System.EventHandler(this.row5_Click);
             // 
-            // btn7
+            // row6
             // 
-            this.btn7.Location = new System.Drawing.Point(521, 533);
-            this.btn7.Name = "btn7";
-            this.btn7.Size = new System.Drawing.Size(35, 23);
-            this.btn7.TabIndex = 11;
-            this.btn7.Text = "↓";
-            this.btn7.UseVisualStyleBackColor = true;
-            this.btn7.Click += new System.EventHandler(this.row6_Click);
+            this.row6.Location = new System.Drawing.Point(521, 533);
+            this.row6.Name = "row6";
+            this.row6.Size = new System.Drawing.Size(35, 23);
+            this.row6.TabIndex = 11;
+            this.row6.Text = "↓";
+            this.row6.UseVisualStyleBackColor = true;
+            this.row6.Click += new System.EventHandler(this.row6_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -760,14 +753,15 @@
             this.cell50.TabIndex = 13;
             this.cell50.TabStop = false;
             // 
-            // button1
+            // apply
             // 
-            this.button1.Location = new System.Drawing.Point(498, 1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Apply Turn";
-            this.button1.UseVisualStyleBackColor = true;
+            this.apply.Location = new System.Drawing.Point(498, 1);
+            this.apply.Name = "apply";
+            this.apply.Size = new System.Drawing.Size(75, 23);
+            this.apply.TabIndex = 13;
+            this.apply.Text = "Apply Turn";
+            this.apply.UseVisualStyleBackColor = true;
+            this.apply.Click += new System.EventHandler(this.apply_Click);
             // 
             // GameForm
             // 
@@ -776,15 +770,15 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(585, 556);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.apply);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.btn7);
-            this.Controls.Add(this.btn6);
-            this.Controls.Add(this.btn5);
-            this.Controls.Add(this.btn4);
-            this.Controls.Add(this.btn3);
-            this.Controls.Add(this.btn2);
-            this.Controls.Add(this.btn1);
+            this.Controls.Add(this.row6);
+            this.Controls.Add(this.row5);
+            this.Controls.Add(this.row4);
+            this.Controls.Add(this.row3);
+            this.Controls.Add(this.row2);
+            this.Controls.Add(this.row1);
+            this.Controls.Add(this.row0);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -852,20 +846,19 @@
         private System.Windows.Forms.PictureBox cell01;
         private System.Windows.Forms.PictureBox cell11;
         private System.Windows.Forms.PictureBox cell10;
-        private System.Windows.Forms.Button btn1;
-        private System.Windows.Forms.Button btn2;
-        private System.Windows.Forms.Button btn3;
-        private System.Windows.Forms.Button btn4;
-        private System.Windows.Forms.Button btn5;
-        private System.Windows.Forms.Button btn6;
-        private System.Windows.Forms.Button btn7;
+        private System.Windows.Forms.Button row0;
+        private System.Windows.Forms.Button row1;
+        private System.Windows.Forms.Button row2;
+        private System.Windows.Forms.Button row3;
+        private System.Windows.Forms.Button row4;
+        private System.Windows.Forms.Button row5;
+        private System.Windows.Forms.Button row6;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.PictureBox cell20;
         private System.Windows.Forms.PictureBox cell30;
         private System.Windows.Forms.PictureBox cell40;
         private System.Windows.Forms.PictureBox cell21;
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.PictureBox cell51;
         private System.Windows.Forms.PictureBox cell52;
         private System.Windows.Forms.PictureBox cell41;
@@ -900,7 +893,7 @@
         private System.Windows.Forms.PictureBox cell55;
         private System.Windows.Forms.PictureBox cell54;
         private System.Windows.Forms.PictureBox cell53;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button apply;
     }
 }
 

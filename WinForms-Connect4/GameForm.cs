@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,77 +12,79 @@ namespace WinForms_Connect4
 {
     public partial class GameForm : Form
     {
-        private int currentSelection { get; set; }
         private bool isLocalPlayerTurn { get; set; }
-        private List<System.Windows.Forms.Button> buttonList;
+        private List<System.Windows.Forms.Button> rowButtonList;
         private System.Windows.Forms.Button lastPicked;
+        internal int currentSelectedRow { get; set; }
         Game game;
-
 
         public GameForm()
         {
             InitializeComponent();
-
         }
-  
-        public void setGame(Game game)
+
+        public void SetGame(Game game)
         {
             this.game = game;
             this.isLocalPlayerTurn = game.IsLocalPlayerTurn;
             if (this.isLocalPlayerTurn)
             {
-                this.gameButtonsTurnOn();
+                GameButtonsTurnOn();
             }
         }
-        private void initButtonList()
+
+        private void InitButtonList()
         {
-            buttonList.Add(btn1);
-            buttonList.Add(btn2);
-            buttonList.Add(btn3);
-            buttonList.Add(btn4);
-            buttonList.Add(btn5);
-            buttonList.Add(btn6);
-            buttonList.Add(btn7);
+            this.rowButtonList = new List<System.Windows.Forms.Button>
+            {
+                row0,
+                row1,
+                row2,
+                row3,
+                row4,
+                row5,
+                row6
+            };
+            this.MakeBtnWhite();
         }
 
         private void GameForm_Load(object sender, EventArgs e)
         {
-            gameButtonsTurnOff();
-            this.initButtonList();
 
-
+            InitButtonList();
+            GameButtonsTurnOff();
         }
 
-        internal void gameButtonsTurnOff()
+        internal void GameButtonsTurnOff()
         {
-           //for each button in buttonList
-           foreach (System.Windows.Forms.Button button in buttonList)
+            foreach (System.Windows.Forms.Button button in rowButtonList)
             {
                 button.Enabled = false;
             }
-            resetToolStripMenuItem.Enabled = false;
+  
         }
-        internal void gameButtonsTurnOn()
+
+        internal void GameButtonsTurnOn()
         {
-            //for each button in buttonList
-            foreach (System.Windows.Forms.Button button in buttonList)
+            foreach (System.Windows.Forms.Button button in rowButtonList)
             {
                 button.Enabled = true;
             }
-            resetToolStripMenuItem.Enabled = true;
+           
         }
-        private void switchSelected(int row)
+
+        private void SwitchSelected(int row)
         {
             if (this.lastPicked != null)
                 this.lastPicked.BackColor = Color.White;
-            this.lastPicked = buttonList[row];
-            this.currentSelection = row;
+            this.lastPicked = rowButtonList[row];
             this.lastPicked.BackColor = Color.Red;
+            this.currentSelectedRow = row;
         }
 
-        private void row0_Click(object sender, EventArgs e)
+        private void Row_Click(object sender, EventArgs e, int row)
         {
-            this.switchSelected(0);
+            SwitchSelected(row);
             /*
             string colour = turnColour(g.count());
 
@@ -111,124 +111,65 @@ namespace WinForms_Connect4
             */
         }
 
-     
+        private void row0_Click(object sender, EventArgs e)
+        {
+            Row_Click(sender, e, 0);
+        }
+
         private void row1_Click(object sender, EventArgs e)
         {
-            this.switchSelected(1);
-            /*
-            string colour = turnColour(g.count());
-
-            int row = g.checkValidSlot(1);
-            int win = g.checkVictory();
-
-            if (row == 5)
-            {
-                cell01.Image = new Bitmap(colour);
-                btn2.Enabled = false;
-            }
-            else if (row == 4)
-                cell11.Image = new Bitmap(colour);
-            else if (row == 3)
-                cell21.Image = new Bitmap(colour);
-            else if (row == 2)
-                cell31.Image = new Bitmap(colour);
-            else if (row == 1)
-                cell41.Image = new Bitmap(colour);
-            else if (row == 0)
-                cell51.Image = new Bitmap(colour);
-
-            displayVictoryMessage(win);
-            */
+            Row_Click(sender, e, 1);
         }
 
         private void row2_Click(object sender, EventArgs e)
         {
-            this.switchSelected(2);
+            Row_Click(sender, e, 2);
         }
 
         private void row3_Click(object sender, EventArgs e)
         {
-           this.switchSelected(3);
+            Row_Click(sender, e, 3);
         }
 
         private void row4_Click(object sender, EventArgs e)
         {
-            this.switchSelected(4);
+            Row_Click(sender, e, 4);
         }
 
         private void row5_Click(object sender, EventArgs e)
         {
-            this.switchSelected(5);
+            Row_Click(sender, e, 5);
         }
 
         private void row6_Click(object sender, EventArgs e)
         {
-           this.switchSelected(6);
+            Row_Click(sender, e, 6);
         }
 
-      private void makeBtnWhite()
+        private void MakeBtnWhite()
         {
-            //for each button in buttonList set the background color to white
-            foreach (System.Windows.Forms.Button button in buttonList)
+            foreach (System.Windows.Forms.Button button in rowButtonList)
             {
                 button.BackColor = Color.White;
             }
         }
 
-        public string turnColour(int k) // k is the value returned by the count function for the turn
+        public string TurnColour(int k) // k is the value returned by the count function for the turn
         {
-            if(k%2==0)
-            {
-                makeBtnWhite();
+            if (this.game.IsLocalPlayerTurn)
                 return "blackChecker.png";
-			}
             else
-            {
-                btn1.BackColor = Color.Tan;
-                btn2.BackColor = Color.Tan;
-                btn3.BackColor = Color.Tan;
-                btn4.BackColor = Color.Tan;
-                btn5.BackColor = Color.Tan;
-                btn6.BackColor = Color.Tan;
-                btn7.BackColor = Color.Tan;
-
                 return "redChecker.png";
-            }
+
         }
 
         // menu buttons
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            btn1.Enabled = true;
-            btn2.Enabled = true;
-            btn3.Enabled = true;
-            btn4.Enabled = true;
-            btn5.Enabled = true;
-            btn6.Enabled = true;
-            btn7.Enabled = true;
-            startToolStripMenuItem.Enabled = false;
-            resetToolStripMenuItem.Enabled = true;
+            this.game.StartGame();
         }
-
-        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Restart(); // simply restart the application to reset everything
-            Environment.Exit(0); // clean shutdown
-        }
-
-        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Game developed by Samuel Mediani and other students during an extracurricular school course on C#. \n\nTechnologies used: Windows Forms, Visual Studio. \n\nYear: 2022", this.Text);
-        }
-       
         // show the outcome of the game (according to win)
-        private void displayVictoryMessage(int win)
+        private void DisplayVictoryMessage(int win)
         {
             if (win == 1)
             {
@@ -245,6 +186,11 @@ namespace WinForms_Connect4
                 MessageBox.Show("Draw!", this.Text);
                 this.Close();
             }
+        }
+
+        private void apply_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
