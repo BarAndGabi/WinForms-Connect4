@@ -842,23 +842,24 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.PictureBox cell00;
+		private System.Windows.Forms.Button row0;
+		private System.Windows.Forms.Button row1;
+		private System.Windows.Forms.Button row2;
+		private System.Windows.Forms.Button row3;
+		private System.Windows.Forms.Button row4;
+		private System.Windows.Forms.Button row5;
+		private System.Windows.Forms.Button row6;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
+
+		private System.Windows.Forms.PictureBox cell00;
         private System.Windows.Forms.PictureBox cell01;
         private System.Windows.Forms.PictureBox cell11;
         private System.Windows.Forms.PictureBox cell10;
-        private System.Windows.Forms.Button row0;
-        private System.Windows.Forms.Button row1;
-        private System.Windows.Forms.Button row2;
-        private System.Windows.Forms.Button row3;
-        private System.Windows.Forms.Button row4;
-        private System.Windows.Forms.Button row5;
-        private System.Windows.Forms.Button row6;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.PictureBox cell20;
         private System.Windows.Forms.PictureBox cell30;
         private System.Windows.Forms.PictureBox cell40;
         private System.Windows.Forms.PictureBox cell21;
-        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
         private System.Windows.Forms.PictureBox cell51;
         private System.Windows.Forms.PictureBox cell52;
         private System.Windows.Forms.PictureBox cell41;

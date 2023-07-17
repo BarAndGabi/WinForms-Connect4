@@ -12,25 +12,30 @@ namespace WinForms_Connect4
 {
     public partial class GameForm : Form
     {
-        private bool isLocalPlayerTurn { get; set; }
+		private PictureBox[,] cells;
         private List<System.Windows.Forms.Button> rowButtonList;
         private System.Windows.Forms.Button lastPicked;
         internal int currentSelectedRow { get; set; }
         Game game;
+        
 
         public GameForm()
         {
             InitializeComponent();
         }
-
+        
         public void SetGame(Game game)
         {
             this.game = game;
-            this.isLocalPlayerTurn = game.IsLocalPlayerTurn;
-            if (this.isLocalPlayerTurn)
-            {
-                GameButtonsTurnOn();
-            }
+           this.cells= new PictureBox[6, 7]
+           {
+                {cell00, cell01, cell02, cell03, cell04, cell05, cell06},
+                {cell10, cell11, cell12, cell13, cell14, cell15, cell16},
+                {cell20, cell21, cell22, cell23, cell24, cell25, cell26},
+                {cell30, cell31, cell32, cell33, cell34, cell35, cell36},
+                {cell40, cell41, cell42, cell43, cell44, cell45, cell46},
+                {cell50, cell51, cell52, cell53, cell54, cell55, cell56}
+			};
         }
 
         private void InitButtonList()
@@ -61,8 +66,11 @@ namespace WinForms_Connect4
             {
                 button.Enabled = false;
             }
-  
-        }
+            this.apply.Enabled = false;
+			this.MakeBtnWhite();
+
+
+		}
 
         internal void GameButtonsTurnOn()
         {
@@ -70,6 +78,7 @@ namespace WinForms_Connect4
             {
                 button.Enabled = true;
             }
+            this.apply.Enabled= true; 
            
         }
 
@@ -154,9 +163,9 @@ namespace WinForms_Connect4
             }
         }
 
-        public string TurnColour(int k) // k is the value returned by the count function for the turn
+        public string TurnColour() // k is the value returned by the count function for the turn
         {
-            if (this.game.IsLocalPlayerTurn)
+            if (!this.game.IsLocalPlayerTurn)
                 return "blackChecker.png";
             else
                 return "redChecker.png";
@@ -178,7 +187,7 @@ namespace WinForms_Connect4
             }
             else if (win == 2)
             {
-                MessageBox.Show("Player 2 won the match!", this.Text);
+                MessageBox.Show("server won the match!", this.Text);
                 this.Close();
             }
             else if (win == 3)
@@ -190,7 +199,18 @@ namespace WinForms_Connect4
 
         private void apply_Click(object sender, EventArgs e)
         {
+            this.game.apply(this.currentSelectedRow);
 
         }
-    }
+
+		internal void UpdateBoard(int row, int col)
+		{
+            this.cells[row, col].Image = new Bitmap(TurnColour());
+		}
+
+		internal void DisplayVictoryMessageFromGame(int win)
+        { 
+            DisplayVictoryMessage(win);
+		}
+	}
 }
