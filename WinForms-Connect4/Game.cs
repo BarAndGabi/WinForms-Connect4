@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Data;
+using System.Net.Http;
 using System.Runtime.Remoting.Channels;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace WinForms_Connect4
 {
 	public class Game
@@ -13,8 +14,7 @@ namespace WinForms_Connect4
 		public bool IsLocalPlayerTurn { get; private set; }
 		public int[,] Board { get; }
 		private GameForm gameForm;
-		private LocalPlayer localPlayer;
-		private ServerSide serverSide;
+
 
 		public Game()
 		{
@@ -26,8 +26,7 @@ namespace WinForms_Connect4
 			this.initBoard();
 			this.gameForm = new GameForm();
 			this.gameForm.SetGame(this);
-			this.localPlayer = new LocalPlayer();
-			this.serverSide = new ServerSide();
+
 		}
 
 		private void initBoard()
