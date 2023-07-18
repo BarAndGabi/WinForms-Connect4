@@ -106,12 +106,23 @@ namespace WinForms_Connect4
             }
             else
             {
-                // handle winner
+                // handle winner to db
                 // alert box with winner
                 this.gameForm.DisplayVictoryMessageFromGame(win);
                 // exit or new game
+                this.initNewGame();//add here option to exit or switch account
             }
         }
+
+        private void initNewGame()
+        {
+            this.gameForm.newGame();
+            this.InitBoard();
+            this.IsLocalPlayerTurn = true;
+            this.gameForm.GameButtonsTurnOn();
+        }
+
+
         public List<int> getFreeCols()
         {
            List<int> freeCols = new List<int>();

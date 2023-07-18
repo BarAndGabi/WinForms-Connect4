@@ -183,17 +183,17 @@ namespace WinForms_Connect4
             if (win == 1)
             {
                 MessageBox.Show("Player 1 won the match!", this.Text);
-                this.Close();
+                
             }
             else if (win == 2)
             {
                 MessageBox.Show("server won the match!", this.Text);
-                this.Close();
+               
             }
             else if (win == 3)
             {
                 MessageBox.Show("Draw!", this.Text);
-                this.Close();
+               
             }
         }
 
@@ -216,6 +216,16 @@ namespace WinForms_Connect4
         private void button1_Click(object sender, EventArgs e)
         {
             this.game.testServer();
+        }
+
+        internal void newGame()
+        {
+           //init the form to be ready for a new game
+            foreach (PictureBox cell in this.cells)
+            {
+                cell.Image = null;
+            }
+            this.MakeBtnWhite();
         }
     }
 }
