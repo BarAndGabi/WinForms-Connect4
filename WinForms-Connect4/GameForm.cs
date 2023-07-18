@@ -199,7 +199,7 @@ namespace WinForms_Connect4
 
         private void apply_Click(object sender, EventArgs e)
         {
-            this.game.apply(this.currentSelectedRow);
+            this.game.Apply(this.currentSelectedRow);
 
         }
 
@@ -213,6 +213,9 @@ namespace WinForms_Connect4
             DisplayVictoryMessage(win);
 		}
 
-	
-	}
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.game.testServer();
+        }
+    }
 }
