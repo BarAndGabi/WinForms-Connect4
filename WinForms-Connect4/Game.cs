@@ -7,17 +7,24 @@ using System.Windows.Forms;
 
 namespace WinForms_Connect4
 {
-    public class Game
+    public class Connect4Game
     {
+        // Static counter to keep track of the number of games created
+        private static int gameCounter = 0;
+        private int ID { get; }
         public int Rows { get; }
         public int Columns { get; }
         public bool IsLocalPlayerTurn { get; private set; }
         public int[,] Board { get; }
         private GameForm gameForm;
         private ServerSide serverSide;
+        private LocalPlayer localPlayer;
+        private int currentTurn { get; set;}
 
-        public Game()
+        public Connect4Game()
         {
+            gameCounter++;
+            this.ID = gameCounter;
             this.Rows = 6;
             this.Columns = 7;
             this.Board = new int[Rows, Columns];
@@ -26,9 +33,17 @@ namespace WinForms_Connect4
             this.gameForm.SetGame(this);
             this.serverSide = new ServerSide(this);
             this.InitBoard();
+            this.localPlayer = new LocalPlayer();
+            this.currentTurn = 0;
+
 
         }
 
+        public int GetID()
+        {
+            return this.ID;
+
+        }
         private void InitBoard()
         {
             // Initialize the board
@@ -99,6 +114,9 @@ namespace WinForms_Connect4
             int win = -1; // the player who won or tie
             row = this.CheckValidSlot(col);
             this.gameForm.UpdateBoard(row, col);
+            //add turn to local db
+            this.localPlayer.AddTurnToDB(this.ID, this.currentTurn, col,this.IsLocalPlayerTurn);
+            ++this.currentTurn;
             win = this.CheckVictory();
             if (win == 0)
             {
@@ -108,6 +126,7 @@ namespace WinForms_Connect4
             {
                 // handle winner to db
                 // alert box with winner
+                this.localPlayer.showTurnsTable();
                 this.gameForm.DisplayVictoryMessageFromGame(win);
                 // exit or new game
                 this.initNewGame();//add here option to exit or switch account

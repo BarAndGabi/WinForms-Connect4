@@ -17,7 +17,7 @@ namespace WinForms_Connect4
             createCheckerPieces();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Game g = new Game();
+            Connect4Game g = new Connect4Game();
             Application.Run(g.GetGameForm());
           
         }

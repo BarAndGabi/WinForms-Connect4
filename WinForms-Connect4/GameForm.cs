@@ -16,7 +16,7 @@ namespace WinForms_Connect4
         private List<System.Windows.Forms.Button> rowButtonList;
         private System.Windows.Forms.Button lastPicked;
         internal int currentSelectedRow { get; set; }
-        Game game;
+        Connect4Game game;
         
 
         public GameForm()
@@ -24,7 +24,7 @@ namespace WinForms_Connect4
             InitializeComponent();
         }
         
-        public void SetGame(Game game)
+        public void SetGame(Connect4Game game)
         {
             this.game = game;
            this.cells= new PictureBox[6, 7]

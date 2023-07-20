@@ -13,11 +13,11 @@ namespace WinForms_Connect4
 {
     internal class ServerSide
     {
-        Game game;
+        Connect4Game game;
         HttpClient httpClient;
         //API ADRESS : https://localhost:7148/api/ApiController/GetTest
 
-        public ServerSide(Game game)
+        public ServerSide(Connect4Game game)
         {
             this.game = game;
             this.httpClient = new HttpClient();
