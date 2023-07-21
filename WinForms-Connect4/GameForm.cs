@@ -199,8 +199,15 @@ namespace WinForms_Connect4
 
         private void apply_Click(object sender, EventArgs e)
         {
-            this.game.Apply(this.currentSelectedRow);
-
+          List<int> availabeCols =this.game.getAvailableColumns();
+            if (availabeCols.Contains(this.currentSelectedRow))
+            {
+                this.game.Apply(this.currentSelectedRow);
+            }
+            else
+            {
+                MessageBox.Show("Invalid move");
+            }
         }
 
 		internal void UpdateBoard(int row, int col)
@@ -226,6 +233,11 @@ namespace WinForms_Connect4
                 cell.Image = null;
             }
             this.MakeBtnWhite();
+        }
+
+        internal void SetPlayerName(int id)
+        {
+           this.helloLabel.Text= "Hello Player " + id;
         }
     }
 }

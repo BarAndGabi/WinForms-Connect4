@@ -91,11 +91,13 @@ namespace WinForms_Connect4
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Id;
+		private string _Id;
 		
 		private int _PlayerId;
 		
 		private bool _PlayerWon;
+		
+		private System.Nullable<bool> _GameFinished;
 		
 		private EntitySet<Turn> _Turns;
 		
@@ -103,12 +105,14 @@ namespace WinForms_Connect4
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIdChanging(int value);
+    partial void OnIdChanging(string value);
     partial void OnIdChanged();
     partial void OnPlayerIdChanging(int value);
     partial void OnPlayerIdChanged();
     partial void OnPlayerWonChanging(bool value);
     partial void OnPlayerWonChanged();
+    partial void OnGameFinishedChanging(System.Nullable<bool> value);
+    partial void OnGameFinishedChanged();
     #endregion
 		
 		public Game()
@@ -117,8 +121,8 @@ namespace WinForms_Connect4
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="VarChar(36) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Id
 		{
 			get
 			{
@@ -177,6 +181,26 @@ namespace WinForms_Connect4
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameFinished", DbType="Bit")]
+		public System.Nullable<bool> GameFinished
+		{
+			get
+			{
+				return this._GameFinished;
+			}
+			set
+			{
+				if ((this._GameFinished != value))
+				{
+					this.OnGameFinishedChanging(value);
+					this.SendPropertyChanging();
+					this._GameFinished = value;
+					this.SendPropertyChanged("GameFinished");
+					this.OnGameFinishedChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Game_Turn", Storage="_Turns", ThisKey="Id", OtherKey="GameId")]
 		public EntitySet<Turn> Turns
 		{
@@ -231,7 +255,7 @@ namespace WinForms_Connect4
 		
 		private int _Id;
 		
-		private int _GameId;
+		private string _GameId;
 		
 		private bool _IsPlayerTurn;
 		
@@ -245,7 +269,7 @@ namespace WinForms_Connect4
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnGameIdChanging(int value);
+    partial void OnGameIdChanging(string value);
     partial void OnGameIdChanged();
     partial void OnIsPlayerTurnChanging(bool value);
     partial void OnIsPlayerTurnChanged();
@@ -279,8 +303,8 @@ namespace WinForms_Connect4
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameId", DbType="Int NOT NULL")]
-		public int GameId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GameId", DbType="VarChar(36) NOT NULL", CanBeNull=false)]
+		public string GameId
 		{
 			get
 			{
@@ -370,7 +394,7 @@ namespace WinForms_Connect4
 					}
 					else
 					{
-						this._GameId = default(int);
+						this._GameId = default(string);
 					}
 					this.SendPropertyChanged("Game");
 				}

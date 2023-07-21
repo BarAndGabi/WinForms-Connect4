@@ -9,9 +9,7 @@ namespace WinForms_Connect4
 {
     public class Connect4Game
     {
-        // Static counter to keep track of the number of games created
-        private static int gameCounter = 0;
-        private int ID { get; }
+        private string ID { get; }
         public int Rows { get; }
         public int Columns { get; }
         public bool IsLocalPlayerTurn { get; private set; }
@@ -23,8 +21,7 @@ namespace WinForms_Connect4
 
         public Connect4Game()
         {
-            gameCounter++;
-            this.ID = gameCounter;
+            this.ID = GenerateRandomId();
             this.Rows = 6;
             this.Columns = 7;
             this.Board = new int[Rows, Columns];
@@ -38,8 +35,19 @@ namespace WinForms_Connect4
 
 
         }
+        public string GenerateRandomId()
+        {
+            // Generate a new GUID (Globally Unique Identifier)
+            Guid guid = Guid.NewGuid();
 
-        public int GetID()
+            // Convert the GUID to a string and remove any hyphens or curly braces
+            string randomId = guid.ToString("N");
+
+            // Return the generated random ID
+            return randomId;
+        }
+
+        public string GetID()
         {
             return this.ID;
 
@@ -69,8 +77,7 @@ namespace WinForms_Connect4
 
             return -1; // Invalid slot
         }
-        //function to return board as a json 
-        //FILL HERE THE FUNCTION -" boardToJson"
+     
 
        
 
@@ -113,6 +120,11 @@ namespace WinForms_Connect4
             int row = -1; // the row of available slot in the given column
             int win = -1; // the player who won or tie
             row = this.CheckValidSlot(col);
+            if(row == -1)
+            {
+                MessageBox.Show("Invalid slot");
+                return;
+            }
             this.gameForm.UpdateBoard(row, col);
             //add turn to local db
             this.localPlayer.AddTurnToDB(this.ID, this.currentTurn, col,this.IsLocalPlayerTurn);
@@ -126,11 +138,34 @@ namespace WinForms_Connect4
             {
                 // handle winner to db
                 // alert box with winner
-                this.localPlayer.showTurnsTable();
+                //this.localPlayer.showTurnsTable();
                 this.gameForm.DisplayVictoryMessageFromGame(win);
-                // exit or new game
-                this.initNewGame();//add here option to exit or switch account
+                this.localPlayer.UpdateGameIsFinished(this.ID, win);
+                if (this.localPlayer.ChooseGameFromArchive())
+                {
+                    //load game from archive
+                }
+                else
+                {
+                    //exit or new game
+                    this.initNewGame();//add here option to exit or switch account
+                }
+               
             }
+        }
+        internal void ApplyFromArchive(int col)
+        {
+            int row = -1; // the row of available slot in the given column
+            row = this.CheckValidSlot(col);
+            if (row == -1)
+            {
+                MessageBox.Show("Invalid slot from archive - "+ col.ToString());
+                return;
+            }
+            this.gameForm.UpdateBoard(row, col);
+            this.IsLocalPlayerTurn = !this.IsLocalPlayerTurn;
+
+
         }
 
         private void initNewGame()
@@ -139,6 +174,7 @@ namespace WinForms_Connect4
             this.InitBoard();
             this.IsLocalPlayerTurn = true;
             this.gameForm.GameButtonsTurnOn();
+
         }
 
 
@@ -236,7 +272,26 @@ namespace WinForms_Connect4
         {
             this.IsLocalPlayerTurn = true;
             this.gameForm.GameButtonsTurnOn();
+            this.localPlayer.LogIn(this.serverSide.PlayerLogIn());
+            this.gameForm.SetPlayerName(this.localPlayer.id);
+              this.localPlayer.addGameToDB(this);
+            if(this.localPlayer.ChooseGameFromArchive())
+            {
+               this.LoadGameFromArchive(); 
+            }
         }
+
+        private void LoadGameFromArchive()
+        {
+           //get from localplayer list of turns and apply them
+            List<Turn> turns = this.localPlayer.GetTurnsFromDB();
+            foreach (Turn turn in turns)
+            {
+                this.ApplyFromArchive(turn.Played);
+            }
+
+        }
+
         public string BoardToJson()
         {
             // Create a two-dimensional array to represent the board
@@ -253,6 +308,24 @@ namespace WinForms_Connect4
             // Serialize the board array to JSON
             string json = JsonConvert.SerializeObject(boardArray);
             return json;
+        }
+
+        internal List<int> getAvailableColumns()
+        {
+            //return list of available columns to play
+            List<int> availableCols = new List<int>();
+            for (int i = 0; i < this.Columns; i++)
+            {
+                for (int j = this.Rows - 1; j >= 0; j--)
+                {
+                    if (this.Board[j, i] == 0)
+                    {
+                        availableCols.Add(i);
+                        break;
+                    }
+                }
+            }
+            return availableCols;
         }
     }
 }

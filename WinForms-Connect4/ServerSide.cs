@@ -52,7 +52,13 @@ namespace WinForms_Connect4
             return false; // The test failed.
         }
 
+        internal int PlayerLogIn()
+        {
+            //get player id from server after login
+            //messgebox - not implemented error 
+            MessageBox.Show("PlayerLogIn(serverside) not implemented");
+            return -1;
 
-
+        }
     }
 }
