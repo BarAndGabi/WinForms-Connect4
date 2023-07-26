@@ -14,6 +14,11 @@ This project has the following dependencies:
 
 - Newtonsoft.Json: A popular JSON library used for serialization and deserialization of objects. Make sure it's installed to avoid any build errors.
 
+## Server Repository
+
+The server-side code that enables the game to interact with a server opponent is located in a separate repository. You can find the server repository here: [Server Repository](https://github.com/BarAndGabi/webSiteAndServer-.net_final_project/tree/master)
+
+
 ## Game Overview
 
 The `Connect4Game` class is the core of the game. Here's an overview of its functionalities:
