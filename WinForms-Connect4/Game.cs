@@ -163,6 +163,12 @@ namespace WinForms_Connect4
                 return;
             }
             this.gameForm.UpdateBoard(row, col);
+            int win = this.CheckVictory();
+            if(win==1 || win == 2)
+            {
+                this.gameForm.DisplayVictoryMessageFromGame(win);
+                this.gameForm.GameButtonsTurnOff();
+            }
             this.IsLocalPlayerTurn = !this.IsLocalPlayerTurn;
 
 
@@ -288,6 +294,12 @@ namespace WinForms_Connect4
             foreach (Turn turn in turns)
             {
                 this.ApplyFromArchive(turn.Played);
+                if (this.CheckVictory() != 0)
+                {
+                    this.gameForm.DisplayVictoryMessageFromGame(this.CheckVictory());
+                    this.gameForm.GameButtonsTurnOff();
+                    break;
+                }
             }
 
         }
@@ -329,3 +341,4 @@ namespace WinForms_Connect4
         }
     }
 }
+

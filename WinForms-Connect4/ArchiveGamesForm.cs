@@ -39,5 +39,12 @@ namespace WinForms_Connect4
             // Return null if no game is selected
             return null;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Close the form
+            this.Close();
+
+        }
     }
 }

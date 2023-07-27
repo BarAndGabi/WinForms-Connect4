@@ -26,8 +26,8 @@ namespace WinForms_Connect4
         public  async Task<HttpResponseMessage>  getNextTurn()
         {
             string url = "https://localhost:7148/api/b/GetServerTurn";
-            string json = this.game.BoardToJson();
-              return await httpClient.PostAsJsonAsync(url, json);
+            string boardJson = this.game.BoardToJson();
+              return await httpClient.PostAsJsonAsync(url, boardJson);
               
         }
     
@@ -54,6 +54,8 @@ namespace WinForms_Connect4
 
         internal int PlayerLogIn()
         {
+            //open the login/sign up razor page
+
             //get player id from server after login
             //messgebox - not implemented error 
             MessageBox.Show("PlayerLogIn(serverside) not implemented");
