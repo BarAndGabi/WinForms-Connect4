@@ -25,17 +25,45 @@ namespace WinForms_Connect4
 
         public void addGameToDB(Connect4Game game)
         {
-          db.Games.InsertOnSubmit(new Game
-          {
-                Id = game.GetID(),
-                PlayerId = id,
-                GameFinished = false,
-                PlayerWon = false
-            });
-            db.SubmitChanges();
-            
-       
+            try
+            {
+                db.Games.InsertOnSubmit(new Game
+                {
+                    Id = game.GetID(),
+                    PlayerId = id,
+                    GameFinished = false,
+                    PlayerWon = false,
+                    StartTime = DateTime.Now,
+                    TimePlayedSeconds = 0
+                });
 
+                db.SubmitChanges();
+       
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception or log the error message
+                MessageBox.Show("An error occurred while adding the game to the database: " + ex.Message);
+            }
+        }
+
+        //function to show all data from db to messagebox
+        internal void PrintGames()
+        {
+            string games = "";
+            //for each game print all the data and its turns
+            foreach (var game in db.Games)
+            {
+                games += "game id : " + game.Id.Substring(0, 3) + "\tplayer id:" + game.PlayerId + "\tgame finished ?:" + game.GameFinished + "\tplayer won ?:" + game.PlayerWon + "\ttime played:" + game.TimePlayedSeconds + "\n";
+                foreach (var turn in db.Turns)
+                {
+                    if (turn.GameId == game.Id)
+                    {
+                        games += "\tturn" + turn.Id + ") " + "game id : " + turn.GameId.Substring(0, 3) + "\tplayer ?:" + turn.IsPlayerTurn + "\tcol played : " + turn.Played + "\n";
+                    }
+                }
+            }
+            MessageBox.Show(games);
         }
 
 
@@ -66,6 +94,7 @@ namespace WinForms_Connect4
             var game = db.Games.Where(g => g.Id == gameId).FirstOrDefault();
             game.GameFinished = gameFinished;
             game.PlayerWon = playerWon;
+            game.TimePlayedSeconds = (int)(DateTime.Now - game.StartTime).TotalSeconds;
             db.SubmitChanges();
             //PrintGames();
         }

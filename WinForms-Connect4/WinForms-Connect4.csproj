@@ -79,9 +79,6 @@
       <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Game.cs" />
-    <Compile Include="LocalDBClasses.cs">
-      <DependentUpon>LocalDBClasses.dbml</DependentUpon>
-    </Compile>
     <Compile Include="LocalDBClasses.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

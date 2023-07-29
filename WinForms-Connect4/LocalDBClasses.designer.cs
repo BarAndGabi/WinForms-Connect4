@@ -39,7 +39,7 @@ namespace WinForms_Connect4
     #endregion
 		
 		public LocalDBClassesDataContext() : 
-				base(global::WinForms_Connect4.Properties.Settings.Default.LocalDBConnectionString, mappingSource)
+				base(global::WinForms_Connect4.Properties.Settings.Default.LocalDBConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -99,6 +99,10 @@ namespace WinForms_Connect4
 		
 		private System.Nullable<bool> _GameFinished;
 		
+		private System.DateTime _StartTime;
+		
+		private int _TimePlayedSeconds;
+		
 		private EntitySet<Turn> _Turns;
 		
     #region Extensibility Method Definitions
@@ -113,6 +117,10 @@ namespace WinForms_Connect4
     partial void OnPlayerWonChanged();
     partial void OnGameFinishedChanging(System.Nullable<bool> value);
     partial void OnGameFinishedChanged();
+    partial void OnStartTimeChanging(System.DateTime value);
+    partial void OnStartTimeChanged();
+    partial void OnTimePlayedSecondsChanging(int value);
+    partial void OnTimePlayedSecondsChanged();
     #endregion
 		
 		public Game()
@@ -197,6 +205,46 @@ namespace WinForms_Connect4
 					this._GameFinished = value;
 					this.SendPropertyChanged("GameFinished");
 					this.OnGameFinishedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="DateTime NOT NULL")]
+		public System.DateTime StartTime
+		{
+			get
+			{
+				return this._StartTime;
+			}
+			set
+			{
+				if ((this._StartTime != value))
+				{
+					this.OnStartTimeChanging(value);
+					this.SendPropertyChanging();
+					this._StartTime = value;
+					this.SendPropertyChanged("StartTime");
+					this.OnStartTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimePlayedSeconds", DbType="Int NOT NULL")]
+		public int TimePlayedSeconds
+		{
+			get
+			{
+				return this._TimePlayedSeconds;
+			}
+			set
+			{
+				if ((this._TimePlayedSeconds != value))
+				{
+					this.OnTimePlayedSecondsChanging(value);
+					this.SendPropertyChanging();
+					this._TimePlayedSeconds = value;
+					this.SendPropertyChanged("TimePlayedSeconds");
+					this.OnTimePlayedSecondsChanged();
 				}
 			}
 		}

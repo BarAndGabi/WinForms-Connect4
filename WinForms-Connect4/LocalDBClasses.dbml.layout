@@ -2,23 +2,23 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="LocalDBClasses">
   <DataContextMoniker Name="/LocalDBClassesDataContext" />
   <nestedChildShapes>
-    <classShape Id="214949f8-3713-4ee0-821d-9b83ac5efcde" absoluteBounds="2.625, 1.5, 2, 1.5785953776041666">
+    <classShape Id="3a10316f-f243-48e7-924f-50319a55cc51" absoluteBounds="2.875, 2.25, 2, 1.9631982421875">
       <DataClassMoniker Name="/LocalDBClassesDataContext/Game" />
       <nestedChildShapes>
-        <elementListCompartment Id="cfb5e273-8376-47dd-bbd7-a86c90732d38" absoluteBounds="2.64, 1.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d8f56f58-c8af-45ef-b7fe-7429355e3368" absoluteBounds="2.89, 2.71, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="1458deab-a2a2-4e2e-9b91-c62cd62fbccc" absoluteBounds="5.625, 1.25, 2, 1.5785953776041666">
+    <classShape Id="10b2e686-c127-4b3b-86ee-7971bb0d378e" absoluteBounds="7.125, 2.75, 2, 1.5785953776041666">
       <DataClassMoniker Name="/LocalDBClassesDataContext/Turn" />
       <nestedChildShapes>
-        <elementListCompartment Id="eea72828-01b4-413b-909b-92a4b2028cd9" absoluteBounds="5.64, 1.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="dc3334b9-65d5-4512-a97a-34d7e553a6ed" absoluteBounds="7.14, 3.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.625 : 2.16429768880208); (5.625 : 2.16429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.875 : 3.48159912109375); (7.125 : 3.48159912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/LocalDBClassesDataContext/Game/Game_Turn" />
       <nodes>
-        <classShapeMoniker Id="214949f8-3713-4ee0-821d-9b83ac5efcde" />
-        <classShapeMoniker Id="1458deab-a2a2-4e2e-9b91-c62cd62fbccc" />
+        <classShapeMoniker Id="3a10316f-f243-48e7-924f-50319a55cc51" />
+        <classShapeMoniker Id="10b2e686-c127-4b3b-86ee-7971bb0d378e" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

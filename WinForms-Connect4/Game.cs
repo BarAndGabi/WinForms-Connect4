@@ -9,7 +9,7 @@ namespace WinForms_Connect4
 {
     public class Connect4Game
     {
-        private string ID { get; }
+        private string ID { get; set; }
         public int Rows { get; }
         public int Columns { get; }
         public bool IsLocalPlayerTurn { get; private set; }
@@ -19,9 +19,10 @@ namespace WinForms_Connect4
         private LocalPlayer localPlayer;
         private int currentTurn { get; set;}
 
+
         public Connect4Game()
         {
-            this.ID = GenerateRandomId();
+            this.ID = "new game";
             this.Rows = 6;
             this.Columns = 7;
             this.Board = new int[Rows, Columns];
@@ -148,7 +149,7 @@ namespace WinForms_Connect4
                 else
                 {
                     //exit or new game
-                    this.initNewGame();//add here option to exit or switch account
+                    this.StartGame();
                 }
                
             }
@@ -180,6 +181,8 @@ namespace WinForms_Connect4
             this.InitBoard();
             this.IsLocalPlayerTurn = true;
             this.gameForm.GameButtonsTurnOn();
+            this.ID = GenerateRandomId();
+
 
         }
 
@@ -280,6 +283,7 @@ namespace WinForms_Connect4
             this.gameForm.GameButtonsTurnOn();
             this.localPlayer.LogIn(this.serverSide.PlayerLogIn());
             this.gameForm.SetPlayerName(this.localPlayer.id);
+            this.initNewGame();
               this.localPlayer.addGameToDB(this);
             if(this.localPlayer.ChooseGameFromArchive())
             {

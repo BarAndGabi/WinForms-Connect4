@@ -24,7 +24,7 @@ namespace WinForms_Connect4
 
             GamesCombo.ValueMember = "Id";
             GamesCombo.DataSource = gameList;
-            GamesCombo.DisplayMember = "Id";
+            GamesCombo.DisplayMember = "StartTime";
         }
 
         internal string GetGameId()

@@ -54,6 +54,21 @@ namespace WinForms_Connect4
 
         internal int PlayerLogIn()
         {
+            bool notLoggedIn = true;
+            int serverPlayerId = -1;
+            while (notLoggedIn)
+            {
+                //open login form as dialog
+                loginForm loginForm = new loginForm();
+                loginForm.ShowDialog();
+                serverPlayerId=this.sendLoginRequestToServer(loginForm.userIdInput.Value,loginForm.userNameTextBox.Text);
+                if (serverPlayerId != -1)
+                {
+                    notLoggedIn=false;
+                }
+            }
+          
+
             //open the login/sign up razor page
 
             //get player id from server after login
@@ -61,6 +76,11 @@ namespace WinForms_Connect4
             MessageBox.Show("PlayerLogIn(serverside) not implemented");
             return -1;
 
+        }
+
+        private int sendLoginRequestToServer(decimal value, string text)
+        {
+            throw new NotImplementedException();
         }
     }
 }
