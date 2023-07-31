@@ -12,24 +12,27 @@ namespace WinForms_Connect4
 {
     public partial class loginForm : Form
     {
-        public loginForm()
+        public string ip { get; set; }
+        public loginForm(string ip)
         {
             InitializeComponent();
             //set the userid input to be 0-1000
             this.userIdInput.Minimum = 0;
             this.userIdInput.Maximum = 1000;
+            this.ip = ip;
         }
 
         private void signUpButton_Click(object sender, EventArgs e)
         {
-            //open website www.google.com
-            System.Diagnostics.Process.Start("http://www.google.com");
+            //open website
+            System.Diagnostics.Process.Start("https://"+this.ip+":7148/SignInPage");
         }
 
         private void logInButton_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
+
 
     }
 }

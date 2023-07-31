@@ -277,11 +277,11 @@ namespace WinForms_Connect4
             return this.gameForm;
         }
 
-        internal void StartGame()
+        internal async void StartGame()
         {
             this.IsLocalPlayerTurn = true;
             this.gameForm.GameButtonsTurnOn();
-            this.localPlayer.LogIn(this.serverSide.PlayerLogIn());
+            this.localPlayer.LogIn(await this.serverSide.PlayerLogIn());
             this.gameForm.SetPlayerName(this.localPlayer.id);
             this.initNewGame();
               this.localPlayer.addGameToDB(this);
