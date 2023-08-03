@@ -21,7 +21,8 @@ namespace WinForms_Connect4
 
             // Add a null item to the beginning of the list
             gameList.Insert(0, new Game { Id = null });
-
+            //game list with all the games of the player
+            
             GamesCombo.ValueMember = "Id";
             GamesCombo.DataSource = gameList;
             GamesCombo.DisplayMember = "StartTime";

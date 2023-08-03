@@ -212,7 +212,12 @@ namespace WinForms_Connect4
 
 		internal void UpdateBoard(int row, int col)
 		{
-            this.cells[row, col].Image = new Bitmap(TurnColour());
+            //add timer to fade in the current bitmap 
+
+         Bitmap current= new Bitmap(TurnColour());
+            this.cells[row, col].Image = current;
+            this.cells[row, col].Refresh();
+
 		}
 
 		internal void DisplayVictoryMessageFromGame(int win)

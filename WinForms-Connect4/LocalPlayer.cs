@@ -23,7 +23,8 @@ namespace WinForms_Connect4
 
         }
 
-        public void addGameToDB(Connect4Game game)
+        public void addGameToDB(Connect4Game game,DateTime t
+            )
         {
             try
             {
@@ -33,7 +34,7 @@ namespace WinForms_Connect4
                     PlayerId = id,
                     GameFinished = false,
                     PlayerWon = false,
-                    StartTime = DateTime.Now,
+                    StartTime = t,
                     TimePlayedSeconds = 0
                 });
 
@@ -151,6 +152,11 @@ namespace WinForms_Connect4
                 }
             }
             return turns;
+        }
+
+        internal DateTime getStartTime()
+        {
+            return db.Games.Where(g => g.Id == this.currentGameId).FirstOrDefault().StartTime;
         }
     }
 }

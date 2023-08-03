@@ -91,6 +91,8 @@ namespace WinForms_Connect4
                     notLoggedIn = false;
                     return serverPlayerId;
                 }
+                //show message box - login failed 
+                MessageBox.Show("Login failed, please try again.");
             }
 
             //open the login/sign up razor page
@@ -100,6 +102,64 @@ namespace WinForms_Connect4
             // MessageBox.Show("PlayerLogIn(serverside) not implemented");
             return -1;
         }
+
+        internal async Task sendStartGameToServer(Connect4Game game)
+        {
+            // Create the URL for the API endpoint
+            string url = "https://" + this.ip + ":7148/api/GameDbApi/writeStartGame";
+            var startGameinfo = new StartGameRequestModel
+            {
+                PlayerId = game.getPlayerId(),
+                GameId = game.GetID(),
+                StartTime = game.StartGameTime
+            };
+            string jsonContent = JsonConvert.SerializeObject(startGameinfo);
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            try
+            {
+                HttpResponseMessage response = await httpClient.PostAsync(url, httpContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    //messagebox of response body 
+                    MessageBox.Show(responseBody);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        //send update end game to server
+        internal async Task sendEndGameToServer(Connect4Game game, bool playerWon)
+        {
+            string url = "https://" + this.ip + ":7148/api/GameDbApi/writeEndGame";
+            var endGameinfo = new EndGameRequestModel
+            {
+                GameId = game.GetID(),
+                PlayerWon = playerWon,
+                TimeLengthSeconds = game.timeLenghtLastGame
+            };
+            string jsonContent = JsonConvert.SerializeObject(endGameinfo);
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            try
+            {
+                HttpResponseMessage response = await this.httpClient.PostAsync(url, httpContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    //messagebox of response body 
+                    MessageBox.Show(responseBody);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
+
+        }
     }
 
     // Create a model class to represent the login request data.
@@ -107,5 +167,22 @@ namespace WinForms_Connect4
     {
         public int PlayerId { get; set; }
         public string PlayerName { get; set; }
+    }
+
+    // Create a model class to represent the start game request data.
+    public class StartGameRequestModel
+    {
+        public int PlayerId { get; set; }
+        public string GameId { get; set; }
+        //StartTime
+        public DateTime StartTime { get; set; }
+
+    }
+    // Create a model class to represent the end game request data.
+    public class EndGameRequestModel
+    {
+        public string GameId { get; set; }
+        public bool? PlayerWon { get; set; }
+        public int? TimeLengthSeconds { get; set; }
     }
 }

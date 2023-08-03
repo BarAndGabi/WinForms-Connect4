@@ -10,6 +10,7 @@ namespace WinForms_Connect4
     public class Connect4Game
     {
         private string ID { get; set; }
+        public DateTime StartGameTime { get; set; }
         public int Rows { get; }
         public int Columns { get; }
         public bool IsLocalPlayerTurn { get; private set; }
@@ -18,6 +19,7 @@ namespace WinForms_Connect4
         private ServerSide serverSide;
         private LocalPlayer localPlayer;
         private int currentTurn { get; set;}
+        public int timeLenghtLastGame { get; set; }
 
 
         public Connect4Game()
@@ -33,6 +35,7 @@ namespace WinForms_Connect4
             this.InitBoard();
             this.localPlayer = new LocalPlayer();
             this.currentTurn = 0;
+            this.timeLenghtLastGame = 0;
 
 
         }
@@ -116,7 +119,7 @@ namespace WinForms_Connect4
             
         }
 
-        internal void Apply(int col)
+        internal async void Apply(int col)
         {
             int row = -1; // the row of available slot in the given column
             int win = -1; // the player who won or tie
@@ -140,8 +143,13 @@ namespace WinForms_Connect4
                 // handle winner to db
                 // alert box with winner
                 //this.localPlayer.showTurnsTable();
+                this.timeLenghtLastGame = (int)(DateTime.Now - this.StartGameTime).TotalSeconds;
                 this.gameForm.DisplayVictoryMessageFromGame(win);
                 this.localPlayer.UpdateGameIsFinished(this.ID, win);
+                if (win==1)
+                await this.serverSide.sendEndGameToServer(this, true);
+                if (win == 2)
+                    await this.serverSide.sendEndGameToServer(this, false);
                 if (this.localPlayer.ChooseGameFromArchive())
                 {
                     //load game from archive
@@ -284,11 +292,23 @@ namespace WinForms_Connect4
             this.localPlayer.LogIn(await this.serverSide.PlayerLogIn());
             this.gameForm.SetPlayerName(this.localPlayer.id);
             this.initNewGame();
-              this.localPlayer.addGameToDB(this);
             if(this.localPlayer.ChooseGameFromArchive())
             {
                this.LoadGameFromArchive(); 
             }
+            //send game and currnet time to server
+            this.StartGameTime = DateTime.Now;
+            this.localPlayer.addGameToDB(this, DateTime.Now);
+            try
+            {
+                await this.serverSide.sendStartGameToServer(this);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+           
+
         }
 
         private void LoadGameFromArchive()
@@ -305,6 +325,8 @@ namespace WinForms_Connect4
                     break;
                 }
             }
+            //update game id
+            this.ID = this.localPlayer.currentGameId;
 
         }
 
@@ -342,6 +364,20 @@ namespace WinForms_Connect4
                 }
             }
             return availableCols;
+        }
+
+        internal int getPlayerId()
+        {
+            //return the current player id
+        
+                return this.localPlayer.id;
+            
+           
+        }
+
+        internal DateTime getCurrentStartTime()
+        {
+            return this.localPlayer.getStartTime();
         }
     }
 }
