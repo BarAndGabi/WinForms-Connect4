@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -210,17 +211,70 @@ namespace WinForms_Connect4
             }
         }
 
-		internal void UpdateBoard(int row, int col)
-		{
-            //add timer to fade in the current bitmap 
+        private Dictionary<PictureBox, double> opacityValues = new Dictionary<PictureBox, double>();
+        private const double AnimationDuration = 0.25; // Animation duration in seconds
+        private const int AnimationSteps = 20; // Number of animation steps
 
-         Bitmap current= new Bitmap(TurnColour());
-            this.cells[row, col].Image = current;
-            this.cells[row, col].Refresh();
+        internal void UpdateBoard(int row, int col)
+        {
+            string color = TurnColour();
+            Bitmap current = new Bitmap(color);
 
-		}
+            PictureBox cell = this.cells[row, col];
+            cell.Image = current;
+            cell.Refresh();
 
-		internal void DisplayVictoryMessageFromGame(int win)
+            if (!opacityValues.ContainsKey(cell))
+            {
+                opacityValues[cell] = 0.0;
+            }
+            else
+            {
+                opacityValues[cell] = 0.0; // Reset opacity for subsequent animations
+            }
+
+            double stepSize = 1.0 / AnimationSteps;
+            int animationStep = 0;
+
+            Timer animationTimer = new Timer();
+            animationTimer.Interval = (int)(AnimationDuration * 1000 / AnimationSteps); // Convert seconds to milliseconds
+            animationTimer.Tick += (sender, e) =>
+            {
+                double opacity = opacityValues[cell];
+                opacity += stepSize;
+                opacityValues[cell] = opacity;
+
+                if (opacity >= 1.0 || animationStep >= AnimationSteps)
+                {
+                    opacityValues[cell] = 1.0;
+                    animationTimer.Stop();
+                }
+
+                using (Bitmap newBitmap = new Bitmap(current.Width, current.Height))
+                {
+                    using (Graphics graphics = Graphics.FromImage(newBitmap))
+                    {
+                        ColorMatrix colorMatrix = new ColorMatrix();
+                        colorMatrix.Matrix33 = (float)opacity; // Opacity value
+
+                        ImageAttributes attributes = new ImageAttributes();
+                        attributes.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+                        graphics.DrawImage(current, new Rectangle(0, 0, current.Width, current.Height),
+                                           0, 0, current.Width, current.Height, GraphicsUnit.Pixel, attributes);
+                    }
+
+                    cell.Image = newBitmap;
+                    cell.Refresh();
+                }
+
+                animationStep++;
+            };
+
+            animationTimer.Start();
+        }
+
+        internal void DisplayVictoryMessageFromGame(int win)
         { 
             DisplayVictoryMessage(win);
 		}

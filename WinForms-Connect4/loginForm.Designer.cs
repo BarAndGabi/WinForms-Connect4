@@ -35,12 +35,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.userIdInput)).BeginInit();
             this.SuspendLayout();
             // 
             // signUpButton
             // 
-            this.signUpButton.Location = new System.Drawing.Point(414, 26);
+            this.signUpButton.Location = new System.Drawing.Point(414, 12);
             this.signUpButton.Name = "signUpButton";
             this.signUpButton.Size = new System.Drawing.Size(75, 23);
             this.signUpButton.TabIndex = 0;
@@ -50,7 +51,7 @@
             // 
             // logInButton
             // 
-            this.logInButton.Location = new System.Drawing.Point(414, 55);
+            this.logInButton.Location = new System.Drawing.Point(414, 41);
             this.logInButton.Name = "logInButton";
             this.logInButton.Size = new System.Drawing.Size(75, 23);
             this.logInButton.TabIndex = 1;
@@ -100,11 +101,22 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "if you want to log in enter your credinatials else click the sign-up button :)";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(414, 70);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "cancel";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // loginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(526, 83);
+            this.ClientSize = new System.Drawing.Size(526, 100);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -129,5 +141,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button1;
     }
 }

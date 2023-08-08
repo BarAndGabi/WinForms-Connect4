@@ -83,7 +83,6 @@
             this.cell52 = new System.Windows.Forms.PictureBox();
             this.cell50 = new System.Windows.Forms.PictureBox();
             this.apply = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.helloLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cell00)).BeginInit();
@@ -763,16 +762,6 @@
             this.apply.UseVisualStyleBackColor = true;
             this.apply.Click += new System.EventHandler(this.apply_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(150, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(122, 23);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "testHttpGet";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // helloLabel
             // 
             this.helloLabel.AutoSize = true;
@@ -790,7 +779,6 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(585, 556);
             this.Controls.Add(this.helloLabel);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.apply);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.row6);
@@ -916,7 +904,6 @@
         private System.Windows.Forms.PictureBox cell54;
         private System.Windows.Forms.PictureBox cell53;
         private System.Windows.Forms.Button apply;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label helloLabel;
     }
 }
