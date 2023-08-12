@@ -150,9 +150,10 @@ namespace WinForms_Connect4
                 await this.serverSide.sendEndGameToServer(this, true);
                 if (win == 2)
                     await this.serverSide.sendEndGameToServer(this, false);
-                if (this.localPlayer.ChooseGameFromArchive())
+                if (this.localPlayer.ChooseGameFromArchive()!=null)
                 {
                     //load game from archive
+                    this.LoadGameFromArchive();
                 }
                 else
                 {
@@ -189,7 +190,7 @@ namespace WinForms_Connect4
             this.InitBoard();
             this.IsLocalPlayerTurn = true;
             this.gameForm.GameButtonsTurnOn();
-            this.ID = GenerateRandomId();
+            this.ID = null;
 
 
         }
@@ -292,27 +293,32 @@ namespace WinForms_Connect4
             this.localPlayer.LogIn(await this.serverSide.PlayerLogIn());
             this.gameForm.SetPlayerName(this.localPlayer.id);
             this.initNewGame();
-            if(this.localPlayer.ChooseGameFromArchive())
+            if (this.localPlayer.ChooseGameFromArchive() != null)
             {
-               this.LoadGameFromArchive(); 
+                this.LoadGameFromArchive();
             }
-            //send game and currnet time to server
-            this.StartGameTime = DateTime.Now;
-            this.localPlayer.addGameToDB(this, DateTime.Now);
-            try
+            else
             {
-                await this.serverSide.sendStartGameToServer(this);
+                this.ID = GenerateRandomId();
+                this.localPlayer.currentGameId= this.ID;
+                //send game and currnet time to server
+                this.StartGameTime = DateTime.Now;
+                this.localPlayer.addGameToDB(this, this.StartGameTime);
+                try
+                {
+                    await this.serverSide.sendStartGameToServer(this);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-           
 
         }
 
-        private void LoadGameFromArchive()
+        private async void LoadGameFromArchive()
         {
+            await this.checkIfGameNotDeletedAsync();
            //get from localplayer list of turns and apply them
             List<Turn> turns = this.localPlayer.GetTurnsFromDB();
             foreach (Turn turn in turns)
@@ -328,6 +334,20 @@ namespace WinForms_Connect4
             //update game id
             this.ID = this.localPlayer.currentGameId;
 
+        }
+
+        private async Task checkIfGameNotDeletedAsync()
+        {
+            //    //check if game was deleted in the web
+            while (await this.serverSide.CheckIfGameDeleted(this.localPlayer.currentGameId))
+            {
+                  MessageBox.Show("Game was deleted in the web");
+                //delete game from local db
+                this.localPlayer.deleteGameFromDB(this.localPlayer.currentGameId);
+                //choose new game from archive
+                this.localPlayer.ChooseGameFromArchive();
+            }
+     
         }
 
         public string BoardToJson()

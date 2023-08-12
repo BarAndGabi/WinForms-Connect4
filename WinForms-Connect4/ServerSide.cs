@@ -80,11 +80,15 @@ namespace WinForms_Connect4
         {
             bool notLoggedIn = true;
             int serverPlayerId = -1;
-            while (notLoggedIn)
+            loginForm loginForm = new loginForm("localhost");
+            while (notLoggedIn&&!loginForm.playLocal)
             {
                 //open login form as dialog
-                loginForm loginForm = new loginForm("localhost");
                 loginForm.ShowDialog();
+                if(loginForm.playLocal)
+                {
+                    return -1;
+                }
                 serverPlayerId = await this.sendLoginRequestToServer(Decimal.ToInt32(loginForm.userIdInput.Value), loginForm.userNameTextBox.Text);
                 if (serverPlayerId != -1)
                 {
@@ -94,12 +98,6 @@ namespace WinForms_Connect4
                 //show message box - login failed 
                 MessageBox.Show("Login failed, please try again.");
             }
-
-            //open the login/sign up razor page
-
-            //get player id from server after login
-            //messgebox - not implemented error 
-            // MessageBox.Show("PlayerLogIn(serverside) not implemented");
             return -1;
         }
 
@@ -160,6 +158,38 @@ namespace WinForms_Connect4
 
 
         }
+
+        internal async Task<bool> CheckIfGameDeleted(string gameId)
+        {
+            string url = "https://" + this.ip + ":7148/api/GameDbApi/checkValidGame";
+            var requestData = new CheckValidGameRequestModel
+            {
+                GameId = gameId
+            };
+            string jsonContent = JsonConvert.SerializeObject(requestData);
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            try
+            {
+                HttpResponseMessage response = await this.httpClient.PostAsync(url, httpContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    bool isValidGame = await response.Content.ReadAsAsync<bool>();
+                    return !isValidGame; // Return true if the game is deleted (not valid).
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
+            return false; // Return false in case of an error or invalid response.
+        }
+
+    }
+    public class CheckValidGameRequestModel
+    {
+        public string GameId { get; set; }
     }
 
     // Create a model class to represent the login request data.

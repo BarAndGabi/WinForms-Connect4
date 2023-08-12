@@ -41,9 +41,9 @@
             // 
             // signUpButton
             // 
-            this.signUpButton.Location = new System.Drawing.Point(414, 12);
+            this.signUpButton.Location = new System.Drawing.Point(393, 12);
             this.signUpButton.Name = "signUpButton";
-            this.signUpButton.Size = new System.Drawing.Size(75, 23);
+            this.signUpButton.Size = new System.Drawing.Size(96, 23);
             this.signUpButton.TabIndex = 0;
             this.signUpButton.Text = "SignUp";
             this.signUpButton.UseVisualStyleBackColor = true;
@@ -51,9 +51,9 @@
             // 
             // logInButton
             // 
-            this.logInButton.Location = new System.Drawing.Point(414, 41);
+            this.logInButton.Location = new System.Drawing.Point(393, 41);
             this.logInButton.Name = "logInButton";
-            this.logInButton.Size = new System.Drawing.Size(75, 23);
+            this.logInButton.Size = new System.Drawing.Size(96, 23);
             this.logInButton.TabIndex = 1;
             this.logInButton.Text = "Log-in";
             this.logInButton.UseVisualStyleBackColor = true;
@@ -103,11 +103,11 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(414, 70);
+            this.button1.Location = new System.Drawing.Point(393, 70);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(96, 23);
             this.button1.TabIndex = 7;
-            this.button1.Text = "cancel";
+            this.button1.Text = "Play Local (-1)";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 

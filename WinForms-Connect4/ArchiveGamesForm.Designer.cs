@@ -37,12 +37,12 @@
             this.GamesCombo.FormattingEnabled = true;
             this.GamesCombo.Location = new System.Drawing.Point(23, 105);
             this.GamesCombo.Name = "GamesCombo";
-            this.GamesCombo.Size = new System.Drawing.Size(724, 21);
+            this.GamesCombo.Size = new System.Drawing.Size(370, 21);
             this.GamesCombo.TabIndex = 0;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(604, 174);
+            this.button1.Location = new System.Drawing.Point(251, 168);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(142, 35);
             this.button1.TabIndex = 1;
@@ -54,7 +54,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 227);
+            this.ClientSize = new System.Drawing.Size(409, 227);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.GamesCombo);
             this.Name = "ArchiveGamesForm";

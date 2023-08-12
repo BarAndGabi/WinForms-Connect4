@@ -13,6 +13,7 @@ namespace WinForms_Connect4
     public partial class loginForm : Form
     {
         public string ip { get; set; }
+        public bool playLocal { get; set; }
         public loginForm(string ip)
         {
             InitializeComponent();
@@ -20,6 +21,7 @@ namespace WinForms_Connect4
             this.userIdInput.Minimum = 0;
             this.userIdInput.Maximum = 1000;
             this.ip = ip;
+            this.playLocal = false;
         }
 
         private void signUpButton_Click(object sender, EventArgs e)
@@ -35,6 +37,7 @@ namespace WinForms_Connect4
 
         private void button1_Click(object sender, EventArgs e)
         {
+            this.playLocal = true;
             this.Close();
         }
     }

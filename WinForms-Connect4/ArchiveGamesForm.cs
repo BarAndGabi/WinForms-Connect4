@@ -15,6 +15,11 @@ namespace WinForms_Connect4
         public ArchiveGamesForm(LocalDBClassesDataContext db, int playerId)
         {
             InitializeComponent();
+            initGamesComboBox(db, playerId);
+        }
+
+        private void initGamesComboBox(LocalDBClassesDataContext db, int playerId)
+        {
             var gameList = (from g in db.Games
                             where g.PlayerId == playerId
                             select g).ToList();
@@ -22,7 +27,7 @@ namespace WinForms_Connect4
             // Add a null item to the beginning of the list
             gameList.Insert(0, new Game { Id = null });
             //game list with all the games of the player
-            
+
             GamesCombo.ValueMember = "Id";
             GamesCombo.DataSource = gameList;
             GamesCombo.DisplayMember = "StartTime";
@@ -39,6 +44,12 @@ namespace WinForms_Connect4
 
             // Return null if no game is selected
             return null;
+        }
+
+        internal void UpdateGamesList(LocalDBClassesDataContext db, int playerId)
+        {
+           this.GamesCombo.DataSource = null;
+            initGamesComboBox(db, playerId);
         }
 
         private void button1_Click(object sender, EventArgs e)

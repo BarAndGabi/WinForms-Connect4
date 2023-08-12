@@ -9,7 +9,7 @@ namespace WinForms_Connect4
 {
     internal class LocalPlayer
     {
-        private LocalDBClassesDataContext db = new LocalDBClassesDataContext();
+        private LocalDBClassesDataContext db;
         public int id { get; set; }//number 
         public string  currentGameId { get; set; }
         private ArchiveGamesForm archiveGamesForm;
@@ -20,31 +20,37 @@ namespace WinForms_Connect4
         {
             //connect to account in the website and get the player's name and id 
             this.id=-1;
+            this.db = new LocalDBClassesDataContext();
 
         }
 
-        public void addGameToDB(Connect4Game game,DateTime t
-            )
+        public void addGameToDB(Connect4Game game,DateTime t)
+            
         {
-            try
+            //check if game is in the db
+            if (!db.Games.Any(g => g.Id == this.currentGameId))
             {
-                db.Games.InsertOnSubmit(new Game
-                {
-                    Id = game.GetID(),
-                    PlayerId = id,
-                    GameFinished = false,
-                    PlayerWon = false,
-                    StartTime = t,
-                    TimePlayedSeconds = 0
-                });
 
-                db.SubmitChanges();
-       
-            }
-            catch (Exception ex)
-            {
-                // Handle the exception or log the error message
-                MessageBox.Show("An error occurred while adding the game to the database: " + ex.Message);
+                try
+                {
+                    db.Games.InsertOnSubmit(new Game
+                    {
+                        Id = this.currentGameId,
+                        PlayerId = id,
+                        GameFinished = false,
+                        PlayerWon = false,
+                        StartTime = t,
+                        TimePlayedSeconds = 0
+                    });
+
+                    db.SubmitChanges();
+
+                }
+                catch (Exception ex)
+                {
+                    // Handle the exception or log the error message
+                    MessageBox.Show("An error occurred while adding the game to the database: " + ex.Message);
+                }
             }
         }
 
@@ -71,11 +77,7 @@ namespace WinForms_Connect4
 
         public void LogIn(int playerId)
         {
-            //connect to account on the website and get the player's id 
-            // Implement your login logic here.
-            // For this example, I'm just setting a dummy player ID.
             this.id = playerId;
-
         }
 
         internal void AddTurnToDB(string gameId, int currentTurn, int col, bool isLocalPlayerTurn)
@@ -114,18 +116,12 @@ namespace WinForms_Connect4
        
   
 
-        internal bool ChooseGameFromArchive()
+        internal string ChooseGameFromArchive()
         {//open the archive form and  wait for the platyer choose a game to play 
             this.archiveGamesForm = new ArchiveGamesForm(db,this.id);
             archiveGamesForm.ShowDialog();
             this.currentGameId = archiveGamesForm.GetGameId();
-            if (this.currentGameId == null)
-            {
-                return false;
-            }
-            return true;
-
-          
+            return this.currentGameId; 
         }
 
         internal void UpdateGameIsFinished(string iD, int win)
@@ -158,5 +154,41 @@ namespace WinForms_Connect4
         {
             return db.Games.Where(g => g.Id == this.currentGameId).FirstOrDefault().StartTime;
         }
+
+        internal void deleteGameFromDB(string id)
+        {
+            try
+            {
+                var gameToDelete = db.Games.FirstOrDefault(g => g.Id == id);
+
+                if (gameToDelete != null)
+                {
+                    // Delete associated turns
+                    var turnsToDelete = db.Turns.Where(t => t.GameId == id);
+                    db.Turns.DeleteAllOnSubmit(turnsToDelete);
+
+                    // Delete the game
+                    db.Games.DeleteOnSubmit(gameToDelete);
+
+                    // Submit changes to the database
+
+                    db.SubmitChanges();
+
+                    MessageBox.Show("Game deleted successfully.");
+                }
+                else
+                {
+                    MessageBox.Show("Game not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while deleting the game from the database: " + ex.Message);
+            }
+
+            //this.archiveGamesForm.UpdateGamesList(this.db, this.id);
+        }
+
+
     }
 }
