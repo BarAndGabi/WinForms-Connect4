@@ -319,20 +319,28 @@ namespace WinForms_Connect4
         private async void LoadGameFromArchive()
         {
             await this.checkIfGameNotDeletedAsync();
-           //get from localplayer list of turns and apply them
-            List<Turn> turns = this.localPlayer.GetTurnsFromDB();
-            foreach (Turn turn in turns)
+            if (this.localPlayer.currentGameId != null)
             {
-                this.ApplyFromArchive(turn.Played);
-                if (this.CheckVictory() != 0)
+                //get from localplayer list of turns and apply them
+                List<Turn> turns = this.localPlayer.GetTurnsFromDB();
+                foreach (Turn turn in turns)
                 {
-                    this.gameForm.DisplayVictoryMessageFromGame(this.CheckVictory());
-                    this.gameForm.GameButtonsTurnOff();
-                    break;
+                    this.ApplyFromArchive(turn.Played);
+                    if (this.CheckVictory() != 0)
+                    {
+                        this.gameForm.DisplayVictoryMessageFromGame(this.CheckVictory());
+                        this.gameForm.GameButtonsTurnOff();
+                        break;
+                    }
                 }
+                //update game id
+                this.ID = this.localPlayer.currentGameId;
             }
-            //update game id
-            this.ID = this.localPlayer.currentGameId;
+            else
+            {
+
+                this.StartGame();
+            }
 
         }
 
